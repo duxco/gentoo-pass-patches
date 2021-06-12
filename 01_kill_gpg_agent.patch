@@ -1,0 +1,45 @@
+diff --git a/src/password-store.sh b/src/password-store.sh
+index 1c9a6cb..0fbf235 100755
+--- a/src/password-store.sh
++++ b/src/password-store.sh
+@@ -718,4 +718,40 @@ case "$1" in
+ 	git) shift;			cmd_git "$@" ;;
+ 	*)				cmd_extension_or_show "$@" ;;
+ esac
++
++if GPG_AGENT_PID="$(pidof gpg-agent)"; then
++
++  if [ "${PASS_RETAIN_AGENT}" == "true" ]; then
++    cat >&2 <<EOF
++  __________________
++< gpg-agent running! >
++  ------------------
++         \   ^__^
++          \  (oo)\_______
++             (__)\       )\/\\
++                 ||----w |
++                 ||     ||
++EOF
++    exit 0
++  fi
++
++  gpgconf --kill gpg-agent
++  echo -n -e "\nWaiting for gpg-agent to stop..." >&2
++  tail --pid="${GPG_AGENT_PID}" -f /dev/null
++  echo " stopped!" >&2
++
++  if pidof gpg-agent >/dev/null 2>&1; then
++    cat >&2 <<EOF
++  __________________
++< gpg-agent running! >
++  ------------------
++         \   ^__^
++          \  (oo)\_______
++             (__)\       )\/\\
++                 ||----w |
++                 ||     ||
++EOF
++  fi
++fi
++
+ exit 0

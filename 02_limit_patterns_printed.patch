@@ -1,0 +1,39 @@
+diff --git a/src/password-store.sh b/src/password-store.sh
+index 0fbf235..b4e8982 100755
+--- a/src/password-store.sh
++++ b/src/password-store.sh
+@@ -376,7 +376,16 @@ cmd_show() {
+ 		--) shift; break ;;
+ 	esac done
+ 
+-	[[ $err -ne 0 || ( $qrcode -eq 1 && $clip -eq 1 ) ]] && die "Usage: $PROGRAM $COMMAND [--clip[=line-number],-c[line-number]] [--qrcode[=line-number],-q[line-number]] [pass-name]"
++	[[ $err -ne 0 || ( $qrcode -eq 1 && $clip -eq 1 ) ]] && die "Usage: $PROGRAM $COMMAND [--clip[=line-number],-c[line-number]] [--qrcode[=line-number],-q[line-number]] [pass-name]
++
++To limit the output you can create the file ~/.password-store_limit-patterns-printed.txt with case-insensitive entries
++which will be used by grep to only print out these entries, example (cat ~/.password-store_limit-patterns-printed.txt):
++^user:
++^e-mail:
++^email:
++
++You can make pass print everything anyway expect the passphrase by setting env variable 'PRINT_ALL=yes'.
++"
+ 
+ 	local pass
+ 	local path="$1"
+@@ -388,7 +397,15 @@ cmd_show() {
+ 			echo "$pass" | $BASE64 -d
+ 		else
+ 			[[ $selected_line =~ ^[0-9]+$ ]] || die "Clip location '$selected_line' is not a number."
+-			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | tail -n +${selected_line} | head -n 1)" || exit $?
++			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile")" || exit $?
++			if [ -f ~/.password-store_limit-patterns-printed.txt ] && { [ -z ${PRINT_ALL+x} ] || [ "${PRINT_ALL}" != "yes" ]; }; then
++				tail -n+2 <<< "$pass" | grep -i -f ~/.password-store_limit-patterns-printed.txt
++				echo ""
++			else
++				tail -n+2 <<< "$pass"
++				echo ""
++			fi
++			pass="$(tail -n +${selected_line} <<< "$pass" | head -n 1)"
+ 			[[ -n $pass ]] || die "There is no password to put on the clipboard at line ${selected_line}."
+ 			if [[ $clip -eq 1 ]]; then
+ 				clip "$pass" "$path"
