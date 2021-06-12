@@ -1,5 +1,5 @@
 diff --git a/src/password-store.sh b/src/password-store.sh
-index 0fbf235..b4e8982 100755
+index 0fbf235..9245faa 100755
 --- a/src/password-store.sh
 +++ b/src/password-store.sh
 @@ -376,7 +376,16 @@ cmd_show() {
@@ -15,7 +15,7 @@ index 0fbf235..b4e8982 100755
 +^e-mail:
 +^email:
 +
-+You can make pass print everything anyway expect the passphrase by setting env variable 'PRINT_ALL=yes'.
++You can make pass print everything anyway expect the passphrase by setting env variable 'PASS_PRINT_ALL=yes'.
 +"
  
  	local pass
@@ -26,7 +26,7 @@ index 0fbf235..b4e8982 100755
  			[[ $selected_line =~ ^[0-9]+$ ]] || die "Clip location '$selected_line' is not a number."
 -			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | tail -n +${selected_line} | head -n 1)" || exit $?
 +			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile")" || exit $?
-+			if [ -f ~/.password-store_limit-patterns-printed.txt ] && { [ -z ${PRINT_ALL+x} ] || [ "${PRINT_ALL}" != "yes" ]; }; then
++			if [ -f ~/.password-store_limit-patterns-printed.txt ] && { [ -z ${PASS_PRINT_ALL+x} ] || [ "${PASS_PRINT_ALL}" != "yes" ]; }; then
 +				tail -n+2 <<< "$pass" | grep -i -f ~/.password-store_limit-patterns-printed.txt
 +				echo ""
 +			else
