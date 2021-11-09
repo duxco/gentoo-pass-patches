@@ -60,3 +60,7 @@ Copied shop/amazon.de/prime to clipboard. Will clear in 10 seconds.
 
 Waiting for gpg-agent to stop... stopped!
 ```
+
+## Other Gentoo Linux repos
+
+https://github.com/duxsco?tab=repositories&q=gentoo-
