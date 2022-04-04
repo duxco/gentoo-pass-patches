@@ -1,5 +1,5 @@
 diff --git a/src/password-store.sh b/src/password-store.sh
-index 0fbf235..9245faa 100755
+index 0fbf235edbcc5d8025b4534b971da6082af0a299..9245faaca4bb7934968ac3bd1b83457e7dc5f88f 100755
 --- a/src/password-store.sh
 +++ b/src/password-store.sh
 @@ -376,7 +376,16 @@ cmd_show() {

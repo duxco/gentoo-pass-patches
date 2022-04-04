@@ -1,5 +1,5 @@
 diff --git a/src/password-store.sh b/src/password-store.sh
-index 1c9a6cb..0fbf235 100755
+index 1c9a6cb7a00475fe36b67f48e39bb5ece1b4ce3d..0fbf235edbcc5d8025b4534b971da6082af0a299 100755
 --- a/src/password-store.sh
 +++ b/src/password-store.sh
 @@ -718,4 +718,40 @@ case "$1" in
