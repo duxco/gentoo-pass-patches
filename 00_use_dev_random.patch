@@ -1,5 +1,5 @@
 diff --git a/src/password-store.sh b/src/password-store.sh
-index a0dcf2e958402ecc77d88fb42cbdb607693a05f8..1c9a6cb7a00475fe36b67f48e39bb5ece1b4ce3d 100755
+index a0dcf2e958402ecc77d88fb42cbdb607693a05f8..567fd55ca357142cdf4d83dc044dc58a6964b746 100755
 --- a/src/password-store.sh
 +++ b/src/password-store.sh
 @@ -536,8 +536,8 @@ cmd_generate() {
@@ -8,7 +8,7 @@ index a0dcf2e958402ecc77d88fb42cbdb607693a05f8..1c9a6cb7a00475fe36b67f48e39bb5ec
  
 -	read -r -n $length pass < <(LC_ALL=C tr -dc "$characters" < /dev/urandom)
 -	[[ ${#pass} -eq $length ]] || die "Could not generate password from /dev/urandom."
-+	read -r -n $length pass < <(dd iflag=fullblock if=/dev/random | LC_ALL=C tr -dc "$characters")
++	read -r -n $length pass < <(LC_ALL=C tr -dc "$characters" < <(dd iflag=fullblock if=/dev/random))
 +	[[ ${#pass} -eq $length ]] || die "Could not generate password from /dev/random."
  	if [[ $inplace -eq 0 ]]; then
  		echo "$pass" | $GPG -e "${GPG_RECIPIENT_ARGS[@]}" -o "$passfile" "${GPG_OPTS[@]}" || die "Password encryption aborted."
