@@ -1,5 +1,7 @@
 # pass-patches
 
+> ️⚠️ You can find information on my GnuPG public key in my [GitHub profile README](https://github.com/duxsco/)! ⚠️
+
 The .patch files contain my customisations to [pass](https://www.passwordstore.org/):
 
   - `00_use_dev_random.patch`: Make sure that you have enough entropy with tools like [sys-apps/rng-tools](https://packages.gentoo.org/packages/sys-apps/rng-tools).
