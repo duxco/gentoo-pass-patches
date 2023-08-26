@@ -1,6 +1,17 @@
 # pass-patches
 
-> ️⚠️ You can find information on my GnuPG public key in my [GitHub profile README](https://github.com/duxsco/)! ⚠️
+```
+  _______________________________________________
+/ This repo has been archived!                    \
+| Its successor is at:                            |
+\ https://codeberg.org/duxsco/gentoo-pass-patches /
+  -----------------------------------------------
+         \   ^__^
+          \  (oo)\_______
+             (__)\       )\/\
+                 ||----w |
+                 ||     ||
+```
 
 The .patch files contain my customisations to [pass](https://www.passwordstore.org/):
 
